@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
+    "target": "ESNext",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "pretty": true,
+    "watch": true,
+    "allowJs": true,
+    "checkJs": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*", "ext.d.ts"],
+  "exclude": ["node_modules/**/*"]
+}

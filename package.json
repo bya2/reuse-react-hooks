@@ -1,0 +1,13 @@
+{
+  "name": "reuse-react-hooks",
+  "version": "0.0.1",
+  "description": "Hooks to reuse in React",
+  "main": "index.js",
+  "repository": "https://github.com/bya2/reuse-react-hooks.git",
+  "author": "bya2 <byaa1972@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react": "^18.0.14",
+    "react": "^18.2.0"
+  }
+}
