@@ -1,6 +1,6 @@
 export const noop = () => {};
 
-export const listen = <T extends Window | Document | HTMLElement | EventTarget>(
+export const on = <T extends Window | Document | HTMLElement | EventTarget>(
   obj: T | null,
   ...args: Parameters<T["addEventListener"]> | [string, Function | null, ...any]
 ): void => {
@@ -9,7 +9,7 @@ export const listen = <T extends Window | Document | HTMLElement | EventTarget>(
   }
 };
 
-export const unlisten = <T extends Window | Document | HTMLElement | EventTarget>(
+export const off = <T extends Window | Document | HTMLElement | EventTarget>(
   obj: T | null,
   ...args: Parameters<T["removeEventListener"]> | [string, Function | null, ...any]
 ): void => {
