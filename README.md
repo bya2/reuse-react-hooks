@@ -1,8 +1,4 @@
-# Reuse React Hooks
-
-```
-npm i -P bya2/reuse-react-hooks
-```
+# Reuse React
 
 ### Hooks
 
