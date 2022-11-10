@@ -1,3 +1,1 @@
-const a = () => {};
-
-export default a;
+export * as hooks from "@/hooks";
