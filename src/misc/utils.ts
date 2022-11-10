@@ -20,6 +20,38 @@ export const off = <T extends Window | Document | HTMLElement | EventTarget>(
   }
 };
 
+// Log
+interface ILogOptions {
+  mod?: "log" | "warn" | "error";
+  info?: object | string;
+  err?: Error | unknown;
+}
+
+export const log = (msg: string, options?: ILogOptions) => {
+  let logger;
+
+  if (!options) options = { mod: "log" };
+
+  switch (options.mod) {
+    case "log":
+      logger = console.log;
+      break;
+    case "warn":
+      logger = console.warn;
+      break;
+    case "error":
+      logger = console.error;
+      break;
+    default:
+      logger = console.log;
+  }
+
+  msg += "\n";
+  options.info && (msg += `${options.info}`);
+  logger(msg);
+  options.err && console.error(options.err);
+};
+
 // Environment
 export const isProd = process.env.NODE_ENV === "production";
 
