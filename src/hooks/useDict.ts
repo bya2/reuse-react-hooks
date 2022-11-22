@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import Dict from "@/models/Dict";
 
 interface Actions<T> {
   set: React.Dispatch<React.SetStateAction<T>>;
@@ -16,17 +17,8 @@ const useDict = <T extends object = any>(_dict: T = {} as T): [T, Actions<T>] =>
   const actions = useMemo<Actions<T>>(
     () => ({
       set,
-
-      upsert: (key, value) => {
-        set((prev) => ({
-          ...prev,
-          [key]: value,
-        }));
-      },
-
-      remove: (key) => {
-        set(({ [key]: _, ...rest }) => rest as T);
-      },
+      upsert: (key, value) => set(Dict.upserted(key, value)),
+      remove: (key) => set(Dict.removed(key)),
     }),
     []
   );
