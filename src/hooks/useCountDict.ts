@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import Dict from "@/models/Dict";
 
 interface Actions<T, K extends keyof T = any> {
   set: React.Dispatch<React.SetStateAction<T>>;
@@ -17,41 +18,34 @@ interface T {
   [key: string]: number;
 }
 
-const useCountDict = <K extends keyof T = string>(_dictOrList: T | K[], _range: CountOptions = {}): [T, Actions<T>] => {
+const useCountDict = <K extends keyof T = string>(_dictOrList: T | K[], _rangeOptions: CountOptions = {}): [T, Actions<T>] => {
   const [dict, set] = useState<T>(() => {
     if (_dictOrList instanceof Array) {
-      return _dictOrList.reduce((obj, t) => {
-        obj[t] = typeof _range.minimum === "number" ? _range.minimum : 0;
-        return obj;
-      }, {} as T);
+      const initialValue = typeof _rangeOptions.minimum === "number" ? _rangeOptions.minimum : 0;
+      return Dict.from(_dictOrList, initialValue);
+    } else {
+      return _dictOrList;
     }
-    return _dictOrList;
   });
 
   const actions = useMemo<Actions<T>>(
     () => ({
       set,
-      inc(key: K, step = _range.step || 1) {
+      inc(key: K, step = _rangeOptions.step || 1) {
         set((prev) => {
           let nVal = prev[key] + step;
-          if (_range.minimum && nVal < _range.minimum) nVal = _range.minimum;
-          if (_range.maximum && nVal > _range.maximum) nVal = _range.maximum;
-          return {
-            ...prev,
-            [key]: nVal,
-          };
+          if (_rangeOptions.minimum && nVal < _rangeOptions.minimum) nVal = _rangeOptions.minimum;
+          if (_rangeOptions.maximum && nVal > _rangeOptions.maximum) nVal = _rangeOptions.maximum;
+          return Dict.upserted<T>(key, nVal)(prev);
         });
       },
 
-      dec(key: K, step = _range.step || 1) {
+      dec(key: K, step = _rangeOptions.step || 1) {
         set((prev) => {
           let nVal = prev[key] - step;
-          if (_range.minimum && nVal < _range.minimum) nVal = _range.minimum;
-          if (_range.maximum && nVal > _range.maximum) nVal = _range.maximum;
-          return {
-            ...prev,
-            [key]: nVal,
-          };
+          if (_rangeOptions.minimum && nVal < _rangeOptions.minimum) nVal = _rangeOptions.minimum;
+          if (_rangeOptions.maximum && nVal > _rangeOptions.maximum) nVal = _rangeOptions.maximum;
+          return Dict.upserted<T>(key, nVal)(prev);
         });
       },
 
@@ -59,20 +53,14 @@ const useCountDict = <K extends keyof T = string>(_dictOrList: T | K[], _range: 
         if (typeof key === "undefined") {
           set(() => {
             if (_dictOrList instanceof Array) {
-              return _dictOrList.reduce((obj, t) => {
-                obj[t] = typeof _range.minimum === "number" ? _range.minimum : 0;
-                return obj;
-              }, {} as T);
+              const initialValue = typeof _rangeOptions.minimum === "number" ? _rangeOptions.minimum : 0;
+              return Dict.from(_dictOrList, initialValue);
+            } else {
+              return _dictOrList;
             }
-            return _dictOrList;
           });
         } else {
-          set((prev) => {
-            return {
-              ...prev,
-              [key]: _dictOrList instanceof Array ? _range.minimum || 0 : _dictOrList[key],
-            };
-          });
+          set(Dict.upserted(key, _dictOrList instanceof Array ? _rangeOptions.minimum || 0 : _dictOrList[key]));
         }
       },
     }),
