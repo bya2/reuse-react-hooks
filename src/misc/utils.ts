@@ -20,6 +20,8 @@ export const off = <T extends Window | Document | HTMLElement | EventTarget>(
   }
 };
 
+export const stopPropagation = <E extends React.BaseSyntheticEvent = any>(e: E) => e.stopPropagation();
+
 // Log
 interface ILogOptions {
   mod?: "log" | "warn" | "error";
