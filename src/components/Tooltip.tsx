@@ -3,14 +3,14 @@ import PopUp from "./PopUp";
 const distance = 10;
 
 interface IProps {
-  hovered: boolean;
+  condition: boolean;
   message: string;
   coordinate: { x: number; y: number };
 }
 
-export default function Tooltip({ hovered, message, coordinate }: IProps) {
+export default function Tooltip({ condition, message, coordinate }: IProps) {
   return (
-    <PopUp condition={hovered}>
+    <PopUp condition={condition}>
       <div
         className="wrapper tooltip"
         style={{

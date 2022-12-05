@@ -5,19 +5,19 @@ import { on, stopPropagation } from "@/misc/utils";
 import type { IProps } from "@/misc/interfaces";
 
 interface IModalProps extends IProps {
-  opened: boolean;
+  condition: boolean;
   closeFn: () => void;
   containerId?: string;
 }
 
-export default function Modal({ children, opened, closeFn }: IModalProps) {
+export default function Modal({ children, condition, closeFn }: IModalProps) {
   const closeModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     on(window, "mouseup", closeFn, { once: true });
   };
 
   return (
-    <PopUp condition={opened}>
+    <PopUp condition={condition}>
       <ShadowOuter className="outer" onMouseDown={closeModal}>
         <div className="inner paper" onMouseDown={stopPropagation}>
           <CloseButton behavior={closeFn} />
