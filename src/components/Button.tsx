@@ -1,13 +1,13 @@
 import { IProps } from "@/misc/interfaces";
 import { on } from "@/misc/utils";
 
-interface IButtonProps extends IProps {
+interface IButtonProps extends IProps<HTMLButtonElement> {
   behavior: () => void;
   image?: any;
   message?: string;
 }
 
-export default function Button({ behavior, image, message }: IButtonProps) {
+export default function Button({ behavior, image, message, ...props }: IButtonProps) {
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     on(window, "mouseup", behavior, { once: true });
@@ -15,7 +15,7 @@ export default function Button({ behavior, image, message }: IButtonProps) {
 
   return (
     <div className="wrapper button">
-      <button onMouseDown={handleMouseDown}>
+      <button {...props} onMouseDown={handleMouseDown}>
         {image ? <></> : null}
         {message ? <span>{message}</span> : null}
       </button>
