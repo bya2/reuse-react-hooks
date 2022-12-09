@@ -1,0 +1,9 @@
+.content::before {
+  content: open-quote;
+  font-size: 10rem;
+  font-family: serif;
+
+  position: absolute;
+  /* left:  */
+  /* top:  */
+}

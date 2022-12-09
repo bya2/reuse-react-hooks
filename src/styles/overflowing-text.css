@@ -1,0 +1,32 @@
+.css-is-awesome {
+  border: 5px solid;
+  padding: 0.125rem 0.5rem;
+  width: 260px;
+}
+
+.css-is-awesome1 {
+  overflow: scroll;
+}
+
+.css-is-awesome2 {
+  overflow-wrap: break-word;
+}
+
+.css-is-awesome3 {
+  width: min-content;
+}
+
+.css-is-awesome4 {
+  width: fit-content;
+}
+
+.css-is-awesome5 {
+  display: grid;
+  place-items: center;
+  /* container-type: inline-size; */
+}
+
+.css-is-awesome5 > p {
+  /* font-size: max(1rem, 19cpi); */
+  font-size: clamp(1rem, 19cpi, 3rem);
+}
